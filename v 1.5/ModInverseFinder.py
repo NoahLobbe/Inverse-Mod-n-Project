@@ -6,8 +6,8 @@ from lib.equations import Equation
 from lib.gui import GUI
   
 
-DEV_MODE = True
-GUI_DEV_OUTPUT = True
+DEV_MODE = False
+GUI_DEV_OUTPUT = False
 
 class ModInverseFinder:
     """class for finding inverse mod-n numbers"""
