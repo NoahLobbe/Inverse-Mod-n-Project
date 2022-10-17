@@ -37,7 +37,6 @@ class ModInverseFinder:
             
 
     def step(self, a,b, counter=''):
-        """Returns quotient and remainder formed from a = bq + r, and a message"""
         if b==0:
             return a, 0, "b=0, therefore division by zero prevented" #q, r, msg
     
@@ -53,8 +52,7 @@ class ModInverseFinder:
             return False, False, f"ERROR @ Step {counter}: a != bq + r -> {equation_str}" #q, r, msg
     
     def getGCD(self, a, b):
-        """Python also supports this natively, math.gcd()
-        Returns bool and the GCD of 'a' and 'b'."""
+        """Returns bool and the GCD of 'a' and 'b'."""
         a = abs(a)
         b = abs(b)
         """
