@@ -105,6 +105,14 @@ class ModInverseFinder:
         """For Modulo-n. Returns a success bool and the inverse."""
         integer = abs(integer)
         
+        if integer == 1:
+            """
+            breaks the program (spits out 0) but this legal because any number outside of the MOD_NUM range gets reduced after calculation
+            I 1/a = x mod-n OR 1 mod-n = a * x, where when a=1, there is no remainder meaning the significant number (inverse) is a
+            Think of the Euclidean Algorithm used for GCD, described as a= bq + r, when r = 0 the GCD is b.
+            """
+            integer += MOD_NUM 
+        
         if integer % 2 == 0:
             self.devOutput("integer is divisible by 2, and therefore there is no inverse")
             return False, None
@@ -147,22 +155,13 @@ class ModInverseFinder:
                     inverse = MasterEquation.RHS_dict[integer]
                     self.devOutput("raw inverse:", inverse)
 
-                    if integer == 1:
-                        '''for inverse 1 of Mod-n, we can clearly see 1 is the answer
-                        by: mod-n = 1*mod-n + 0
-                        And the initial setup of inverse = 1/determinant
-                        '''
-                        inverse = 1
+                    while inverse >= MOD_NUM: #e.g. max is 25 fro Mod26
+                        inverse -= MOD_NUM
                         self.devOutput("inverse modulo:", inverse)
-                    else:
 
-                        while inverse >= MOD_NUM: #e.g. max is 25 fro Mod26
-                            inverse -= MOD_NUM
-                            self.devOutput("inverse modulo:", inverse)
-
-                        while inverse < 0:
-                            inverse += MOD_NUM
-                            self.devOutput("inverse modulo:", inverse)
+                    while inverse < 0:
+                        inverse += MOD_NUM
+                        self.devOutput("inverse modulo:", inverse)
 
                     self.devOutput(f"FINAL ANSWER: Inverse Modulo-{MOD_NUM} of {integer} is {inverse}")
                     return True, inverse
