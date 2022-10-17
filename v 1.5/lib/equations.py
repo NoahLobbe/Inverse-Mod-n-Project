@@ -4,8 +4,7 @@ class Equation:
     """custom 'datatype' for easier handling of equations"""
 
     def __init__(self, LHS_dict, RHS_dict, dev_prints=False):
-        """Appropriate example:
-        LHS_dict = {'a':3}, LHS_dict = {'b':4, 'c':6}, resulting in 'a = bc'"""
+        
         self.dev_prints = dev_prints
         
         self.LHS_dict = LHS_dict
