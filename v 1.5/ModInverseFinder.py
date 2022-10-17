@@ -6,7 +6,7 @@ from lib.equations import Equation
 from lib.gui import GUI
   
 
-DEV_MODE = False
+DEV_MODE = False 
 GUI_DEV_OUTPUT = False
 
 class ModInverseFinder:
@@ -15,7 +15,7 @@ class ModInverseFinder:
     def __init__(self):
         """"""
 
-        self.equation_steps_dict = {}
+        self.equation_steps_dict = {} #keeps track of the steps
 
         self.UserInterface = GUI("Mod-n Inverse Finder", DEV_MODE, GUI_DEV_OUTPUT)
         self.UserInterface.run_btn['command'] = self.run
@@ -45,9 +45,9 @@ class ModInverseFinder:
         equation_str = f"{a} = {b}*{quotient} + {remainder}"
     
         if a == b*quotient + remainder: #should always be true
-            self.equation_steps_dict[counter] =  Equation({a:1}, {b:quotient, remainder:1}, DEV_MODE)
+            self.equation_steps_dict[counter] =  Equation({a:1}, {b:quotient, remainder:1}, DEV_MODE) #adding object to record variable
             self.equation_steps_dict[counter].rearrange(remainder)
-            return quotient, remainder, f"Step {counter}: {equation_str} -> {self.equation_steps_dict[counter].str}"
+            return quotient, remainder, f"Step {counter}: {equation_str} -> {self.equation_steps_dict[counter].str}" #q, r, msg
         else:
             return False, False, f"ERROR @ Step {counter}: a != bq + r -> {equation_str}" #q, r, msg
     
@@ -57,12 +57,10 @@ class ModInverseFinder:
         b = abs(b)
         """
         abs() is an acceptable and legal move.
-        We can see that 4 is the GCD in (-4, -12), (4, -12), (-4, 12), and (4, 12).
-        Even in the case of (-4,-12) were -4 would seem to be correct,
-        +4 is techniquely the Greatest Commond Divisor.
-        The use of abs() does solve a hiccup in getGCD(-4, 12)
+        For example, we can see that 4 is the GCD in (-4, -12), (4, -12), (-4, 12), and (4, 12).
+        Even in the case of (-4,-12) were -4 would seem to be correct +4 is techniquely the Greatest Commond Divisor.
         """
-        counter = 1
+        counter = 1 #to keep track and name the steps
     
         quotient, remainder, msg = self.step(a, b, counter)
         self.devOutput(msg)
@@ -101,7 +99,7 @@ class ModInverseFinder:
 
     def getModReciprocal(self, MOD_NUM, integer):
         """For Modulo-n. Returns a success bool and the inverse."""
-        integer = abs(integer)
+        integer = abs(integer) #negatives just have an extra factor of -1 and thus -3 and 3 will have the same inverse
         
         if integer == 1:
             """
@@ -144,7 +142,7 @@ class ModInverseFinder:
                 is_mod_num_in_master_equation = (MOD_NUM in MasterEquation.RHS_dict) or (MOD_NUM in MasterEquation.RHS_dict.values())
                 self.devOutput("is_mod_num_in_master_equation:", is_mod_num_in_master_equation)
                 
-                if (len(MasterEquation.RHS_dict) == 2) and is_mod_num_in_master_equation: #(MOD_NUM in MasterEquation.RHS_dict):
+                if (len(MasterEquation.RHS_dict) == 2) and is_mod_num_in_master_equation: #something will be wrong if MOD_NUM not in the equation to cancel one out of two terms
                     
                     self.devOutput("Final equation:", MasterEquation.str)
                     self.devOutput("RHS:", MasterEquation.RHS_dict)
@@ -152,8 +150,9 @@ class ModInverseFinder:
                 
                     inverse = MasterEquation.RHS_dict[integer]
                     self.devOutput("raw inverse:", inverse)
-
-                    while inverse >= MOD_NUM: #e.g. max is 25 fro Mod26
+                    
+                    #bring into MOD_NUM range
+                    while inverse >= MOD_NUM: #e.g. max is 25 for Mod-26
                         inverse -= MOD_NUM
                         self.devOutput("inverse modulo:", inverse)
 
