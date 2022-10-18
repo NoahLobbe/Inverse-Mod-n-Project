@@ -122,16 +122,17 @@ Enter your Modulo-n and your integer, then hit run."""
         self.dev_output_frm.grid(column=2, pady=5, sticky="s")
 
     def getIntInput(self, entryWidget):
-        """Returns integer"""
+        """Returns True and integer if successful.
+        Returns False and "InvalidInteger" if unsuccessful"""
         try:
             value = int(entryWidget.get())
             entryWidget.delete(0, tk.END)
-            return value
+            return True, value
         except ValueError:
             self.output_lbl['text'] = "Please Enter a Valid Integer"
             self.devOutput("Please Enter a Valid Integer")
             self.devTextOutput("Please Enter a Valid Integer")
-            return False
+            return False, "InvalidInteger"
 
 
 if __name__ == "__main__":
