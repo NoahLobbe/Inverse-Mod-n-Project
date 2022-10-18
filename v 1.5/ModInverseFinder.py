@@ -164,12 +164,13 @@ class ModInverseFinder:
                     return True, inverse
 
                 else:
-                    self.devOutput((len(MasterEquation.RHS_dict) == 2) and is_mod_num_in_master_equation)
-                    self.UserInterface.output_lbl['text'] = "error"
+                    msg = "ERROR, len(MasterEquation.RHS_dict) == 2) and is_mod_num_in_master_equation: ", (len(MasterEquation.RHS_dict) == 2) and is_mod_num_in_master_equation)
+                    self.devOutput(msg)
+                    self.UserInterface.output_lbl['text'] = "Error"
                     return False, None
 
             else:
-                self.devOutput(is_good_for_mod_inverses)
+                self.devOutput("is_good_for_mod_inverses:", is_good_for_mod_inverses)
                 return False, None
 
             
@@ -177,11 +178,11 @@ class ModInverseFinder:
     def run(self):
         self.equation_steps_dict.clear() #reset
         
-        mod_num = self.UserInterface.getIntInput(self.UserInterface.mod_input_entry)#int(input("Enter Modulo-n value: "))
-        integer = self.UserInterface.getIntInput(self.UserInterface.int_input_entry)#int(input("Enter determinant value: "))
-        self.devOutput("mod_num", mod_num)
+        success_mod, mod_num = self.UserInterface.getIntInput(self.UserInterface.mod_input_entry)#int(input("Enter Modulo-n value: "))
+        success_int, integer = self.UserInterface.getIntInput(self.UserInterface.int_input_entry)#int(input("Enter determinant value: "))
+        self.devOutput("mod_num", mod_num, " integer: ", integer)
 
-        if mod_num and integer: #won't run if .getIntInput() returns Falses
+        if success_mod and success_int:# and integer: #won't run if .getIntInput() returns Falses
             self.devOutput("running")
             is_successful, result = self.getModReciprocal(mod_num, integer)
             if is_successful:
@@ -189,7 +190,8 @@ class ModInverseFinder:
             else:
                 self.UserInterface.output_lbl['text'] = f"Inverse of {integer} (mod-{mod_num}) does not exist"
         else:
-            self.devOutput("invalid mod and integer, not running")
+            self.devOutput("valid mod_num: ", success_mod)
+            self.devOutput("valid integer: ", success_int)
     
     
 if __name__ == "__main__":
