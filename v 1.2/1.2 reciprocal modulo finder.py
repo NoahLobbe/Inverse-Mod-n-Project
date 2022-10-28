@@ -255,7 +255,7 @@ def getGCD(a, b):
 
 def getModReciprocal(determinant=7):
     """For Modulo-26. Returns a bool and the value."""
-
+    '''
     if determinant % 2 == 0:
         #divisble by 2 if there is no remainder
         return False, None
@@ -263,8 +263,8 @@ def getModReciprocal(determinant=7):
     elif determinant % 13 == 0:
         #divisble by 13 if there is no remainder
         return False, None
-
-    else:
+    '''
+    if True: #above commented out code checks for 2 and 13 divisibility but results in incorrect answers (e.g. 4^-1 in mod-27 is 7 and does exist)
         is_good_for_mod_inverses, GCD = getGCD(MOD_NUM, determinant)
         if is_good_for_mod_inverses and (GCD == 1):
             #equation in form: gcd = factor_1(coefficent) - factor_2(coeffienct)
