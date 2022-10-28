@@ -371,11 +371,16 @@ class ModInverseFinder:
 
 if __name__ == "__main__":
     app = ModInverseFinder()
+    run_app = True
 
     print("Please enter the Modulo number: ")
     while True:
         try:
-            MOD = int(input())
+            MOD = input()
+            if MOD.lower() == 'q' or MOD.lower() == 'quit':
+                run_app = False
+            else:
+                MOD = int(MOD)
             break
         except ValueError: #if input isn't an int
             print("Please try again: ")
@@ -383,9 +388,13 @@ if __name__ == "__main__":
     print("Please enter the Integer number: ")
     while True:
         try:
-            integer = int(input())
+            integer = input()
+            if integer.lower() == 'q' or integer.lower() == 'quit':
+                run_app = False
+            else:
+                integer = int(integer)
             break
         except ValueError: #if input isn't an int
             print("Please try again: ")
-
-    app.run(MOD, integer)
+    if run_app:
+        app.run(MOD, integer)
