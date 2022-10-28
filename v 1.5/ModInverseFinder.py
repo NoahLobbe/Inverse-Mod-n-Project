@@ -107,16 +107,8 @@ class ModInverseFinder:
             I 1/a = x mod-n OR 1 mod-n = a * x, where when a=1, there is no remainder meaning the significant number (inverse) is a
             Think of the Euclidean Algorithm used for GCD, described as a= bq + r, when r = 0 the GCD is b.
             """
-            integer += MOD_NUM 
-        
-        if integer % 2 == 0:
-            self.devOutput("integer is divisible by 2, and therefore there is no inverse")
-            return False, None
-
-        elif integer % 13 == 0:
-            self.devOutput("integer is divisible by 13, and therefore there is no inverse")
-            return False, None
-
+            integer += MOD_NUM
+            
         else:
         
             is_good_for_mod_inverses, GCD = self.getGCD(MOD_NUM, integer)
