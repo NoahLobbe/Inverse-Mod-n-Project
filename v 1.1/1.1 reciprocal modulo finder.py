@@ -59,7 +59,7 @@ def getGCD(a, b):
 
 def getModReciprocal(determinant):
     """For Modulo-26. Returns a bool and the value."""
-
+    '''
     if determinant % 2 == 0:
         #divisble by 2 if there is no remainder
         return False, None
@@ -67,8 +67,8 @@ def getModReciprocal(determinant):
     elif determinant % 13 == 0:
         #divisble by 13 if there is no remainder
         return False, None
-
-    else:
+    '''
+    if True: #commented above out as  checks for 2 and 13 divisibility resulted in incorrect answers (e.g. 4^-1 in mod-27 is 7 and does exist)
         GCD = getGCD(MOD_NUM, determinant)
         if GCD == 1:
             pass #use steps_list to reverse engineer
